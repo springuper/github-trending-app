@@ -48,10 +48,12 @@ class TrendingDetail extends Component {
         <View style={ styles.sectionContainer }>
           <Text style={ styles.desc }>{ this.props.data.description }</Text>
         </View>
-        <View style={ styles.sectionContainer }>
+        <View >
           <ListView
+            style={ styles.sectionContainer }
             dataSource={ this.state.ds }
             renderRow={ this.renderRow }
+            scrollEnabled={ false }
           />
         </View>
       </View>
