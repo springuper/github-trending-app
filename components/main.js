@@ -6,19 +6,26 @@ import {
   View
 } from 'react-native';
 import TrendingList from './list';
+import TrendingFilter from './filter';
 
 class TrendingMain extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      lang: 'all',
-      period: 'day',
-    };
   }
   render() {
     return (
       <View style={ styles.container }>
-        <TrendingList lang={ this.state.lang } period={ this.state.period } navigator={ this.props.navigator } />
+        <TrendingList
+          lang={ this.props.lang }
+          period={ this.props.period }
+          navigator={ this.props.navigator }
+        />
+        <TrendingFilter
+          lang={ this.props.lang }
+          period={ this.props.period }
+          visible={ this.props.filterVisible }
+          navigator={ this.props.navigator }
+        />
       </View>
     );
   }

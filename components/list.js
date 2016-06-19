@@ -4,16 +4,16 @@ import {
   ListView,
   TouchableHighlight,
   Text,
+  Image,
   View
 } from 'react-native';
 import TrendingDetail from './detail';
 import api from '../lib/api';
 import mockData from '../lib/mockdata';
-const DEBUG = true;
+const DEBUG = false;
 
 class TrendingList extends Component {
   constructor(props) {
-    console.log('list props', props);
     super(props);
     var ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
     this.state = {
@@ -23,17 +23,26 @@ class TrendingList extends Component {
     };
   }
   componentDidMount() {
-    this.request();
+    this.request(this.props.period, this.state.lang);
   }
-  request() {
+  componentWillReceiveProps(nextProps) {
+    if (this.props.period !== nextProps.period ||
+       this.props.lang !== nextProps.period) {
+      this.setState({
+        loaded: false,
+        error: null,
+      });
+      this.request(nextProps.period, nextProps.lang);
+    }
+  }
+  request(period, lang) {
     let search;
     if (DEBUG) {
       search = Promise.resolve(mockData);
     } else {
-      search = api.search(this.props.lang, this.props.period);
+      search = api.search(lang, period);
     }
     search.then(result => {
-        console.log('result', result);
         this.setState({
           loaded: true,
           ds: this.state.ds.cloneWithRows(result.items),
@@ -41,11 +50,10 @@ class TrendingList extends Component {
         });
       })
       .catch(error => {
-        console.log('error', error);
         this.setState({
           loaded: true,
           error,
-        });
+        })
       });
   }
   render() {
@@ -73,6 +81,7 @@ class TrendingList extends Component {
     );
   }
   renderError() {
+    // TODO reload button
     return (
       <View style={ styles.container }>
         <Text style={ styles.loading }>Error: { this.state.error.message }</Text>
@@ -80,7 +89,6 @@ class TrendingList extends Component {
     );
   }
   renderRow(rowData) {
-    console.log('@renderRow', this._navigate);
     return (
       <TouchableHighlight onPress={ () => this._navigate(rowData) } underlayColor='#DFEDFF'>
         <View style={ styles.rowContainer }>
@@ -89,12 +97,18 @@ class TrendingList extends Component {
             <Text style={ styles.name }>{ rowData.name }</Text>
           </Text>
           <Text style={ styles.desc }>{ rowData.description }</Text>
+          <Text style={ styles.tagsContainer }>
+            <Text sytle={ styles.tag }>{ rowData.language || 'Unknown' }</Text>
+            <Text sytle={ styles.seperator }> &middot; </Text>
+            <Text sytle={ styles.tag }>{ rowData.stargazers_count } stars { this.props.period }</Text>
+            <Text sytle={ styles.seperator }> &middot; </Text>
+            <Image style={ styles.avatar } source={{ uri: rowData.owner.avatar_url }} />
+          </Text>
         </View>
       </TouchableHighlight>
     );
   }
   _navigate(data) {
-    console.log('@_navigate', this.props);
     this.props.navigator.push({
       component: TrendingDetail,
       title: data.owner.login + '/' + data.name,
@@ -131,7 +145,23 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   desc: {
+    fontSize: 14,
     color: '#666666',
+  },
+  tagsContainer: {
+    marginBottom: 0,
+    fontSize: 12,
+    color: '#999999',
+  },
+  tag: {
+  },
+  avatar: {
+    width: 20,
+    height: 20,
+    marginTop: 6,
+    borderRadius: 3,
+  },
+  seperator: {
   },
 });
 

@@ -3,3 +3,6 @@ node_modules
 bower_components
 tmp
 cachefile.json
+.DS_Store
+
+ios/build
