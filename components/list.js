@@ -16,21 +16,25 @@ class TrendingList extends Component {
   constructor(props) {
     super(props);
     var ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
+    this.page = 0;
     this.state = {
       loaded: false,
       error: null,
       ds,
+      data: [],
     };
   }
   componentDidMount() {
-    this.request(this.props.period, this.state.lang);
+    this.request(this.props.period, this.props.lang);
   }
   componentWillReceiveProps(nextProps) {
     if (this.props.period !== nextProps.period ||
-       this.props.lang !== nextProps.period) {
+       this.props.lang !== nextProps.lang) {
+      this.page = 0;
       this.setState({
         loaded: false,
         error: null,
+        data: [],
       });
       this.request(nextProps.period, nextProps.lang);
     }
@@ -40,12 +44,14 @@ class TrendingList extends Component {
     if (DEBUG) {
       search = Promise.resolve(mockData);
     } else {
-      search = api.search(lang, period);
+      search = api.search(lang, period, this.page);
     }
     search.then(result => {
+        const data = this.state.data.concat(result.items);
         this.setState({
           loaded: true,
-          ds: this.state.ds.cloneWithRows(result.items),
+          ds: this.state.ds.cloneWithRows(data),
+          data,
           error: null,
         });
       })
@@ -57,8 +63,11 @@ class TrendingList extends Component {
       });
   }
   render() {
+    let loadingTail;
     if (!this.state.loaded) {
-      return this.renderLoading();
+      loadingTail = (
+        <Text style={ styles.loading }>loading...</Text>
+      );
     }
     if (this.state.error) {
       return this.renderError();
@@ -69,14 +78,10 @@ class TrendingList extends Component {
         <ListView
           dataSource={ this.state.ds }
           renderRow={ this.renderRow.bind(this) }
+          onEndReached={ () => this._loadNextPage() }
+          onEndReachedThreshold={ 50 }
         />
-      </View>
-    );
-  }
-  renderLoading() {
-    return (
-      <View style={ styles.container }>
-        <Text style={ styles.loading }>loading...</Text>
+        { loadingTail }
       </View>
     );
   }
@@ -109,13 +114,18 @@ class TrendingList extends Component {
     );
   }
   _navigate(data) {
+    const title = data.owner.login + '/' + data.name;
     this.props.navigator.push({
       component: TrendingDetail,
-      title: data.owner.login + '/' + data.name,
+      title: title.length > 26 ? data.name : title,
       passProps: {
         data,
       },
     });
+  }
+  _loadNextPage() {
+    this.page = this.page + 1;
+    this.request(this.props.period, this.props.lang);
   }
 }
 
@@ -125,7 +135,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
   },
   loading: {
-    marginTop: 60,
+    marginTop: 0,
     textAlign: 'center',
     color: '#999999',
   },

@@ -6,8 +6,10 @@
     "start": "node node_modules/react-native/local-cli/cli.js start"
   },
   "dependencies": {
+    "apphub": "^0.5.1",
     "moment": "^2.13.0",
     "react": "^15.1.0",
-    "react-native": "^0.27.0-rc2"
+    "react-native": "^0.27.0-rc2",
+    "react-native-vector-icons": "^2.0.3"
   }
 }

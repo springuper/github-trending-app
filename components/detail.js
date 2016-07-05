@@ -4,6 +4,7 @@ import {
   ListView,
   TouchableHighlight,
   Text,
+  Linking,
   View
 } from 'react-native';
 
@@ -56,6 +57,22 @@ class TrendingDetail extends Component {
             scrollEnabled={ false }
           />
         </View>
+        <View style={ styles.sectionContainer }>
+          <TouchableHighlight
+            onPress={ () => this.openUrl(this.props.data.html_url) }
+            underlayColor='#DFEDFF'
+          >
+            <Text style={ styles.button }>Open in Safari</Text>
+          </TouchableHighlight>
+        </View>
+        <View style={ styles.sectionContainer }>
+          <TouchableHighlight
+            onPress={ () => this.openUrl(this.props.data.html_url.replace('https://', 'googlechromes://')) }
+            underlayColor='#DFEDFF'
+          >
+            <Text style={ styles.button }>Open in Chrome</Text>
+          </TouchableHighlight>
+        </View>
       </View>
     );
   }
@@ -66,6 +83,15 @@ class TrendingDetail extends Component {
         <Text style={ styles.value }>{ rowData.value }</Text>
       </View>
     );
+  }
+  openUrl(url) {
+    Linking.canOpenURL(url).then(supported => {
+      if (supported) {
+        Linking.openURL(url);
+      } else {
+        console.log('Don\'t know how to open URI: ' + url);
+      }
+    });
   }
 }
 
@@ -85,7 +111,7 @@ const styles = StyleSheet.create({
   },
   desc: {
     padding: 10,
-    fontSize: 14,
+    fontSize: 16,
     color: '#666666',
   },
   rowContainer: {
@@ -104,6 +130,12 @@ const styles = StyleSheet.create({
   value: {
     fontSize: 16,
     color: '#666666',
+  },
+  button: {
+    padding: 10,
+    fontSize: 16,
+    color: '#4078C0',
+    textAlign: 'center',
   },
 });
 

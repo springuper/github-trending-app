@@ -51,7 +51,7 @@ class GithubTrending extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      lang: 'all',
+      lang: 'All',
       period: 'today',
     };
   }
