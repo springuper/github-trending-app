@@ -17,11 +17,11 @@ class TrendingList extends Component {
     super(props);
     var ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
     this.page = 0;
+    this.data = [];
     this.state = {
-      loaded: false,
+      loading: false,
       error: null,
       ds,
-      data: [],
     };
   }
   componentDidMount() {
@@ -31,41 +31,47 @@ class TrendingList extends Component {
     if (this.props.period !== nextProps.period ||
        this.props.lang !== nextProps.lang) {
       this.page = 0;
-      this.setState({
-        loaded: false,
-        error: null,
-        data: [],
-      });
+      this.data = [];
       this.request(nextProps.period, nextProps.lang);
     }
   }
   request(period, lang) {
+    if (this.state.loading) return;
+
+    this.setState({
+      loading: true,
+      error: null,
+    });
+
     let search;
     if (DEBUG) {
-      search = Promise.resolve(mockData);
+      search = new Promise(resolve => {
+        setTimeout(() => {
+          resolve(mockData);
+        }, 5000);
+      });
     } else {
       search = api.search(lang, period, this.page);
     }
     search.then(result => {
-        const data = this.state.data.concat(result.items);
+        this.data = this.data.concat(result.items.filter(Boolean));
         this.setState({
-          loaded: true,
-          ds: this.state.ds.cloneWithRows(data),
-          data,
+          loading: false,
+          ds: this.state.ds.cloneWithRows(this.data),
           error: null,
         });
       })
       .catch(error => {
         this.setState({
-          loaded: true,
+          loading: false,
           error,
         })
       });
   }
   render() {
-    let loadingTail;
-    if (!this.state.loaded) {
-      loadingTail = (
+    let loadingBox;
+    if (this.state.loading) {
+      loadingBox = (
         <Text style={ styles.loading }>loading...</Text>
       );
     }
@@ -76,12 +82,13 @@ class TrendingList extends Component {
     return (
       <View style={ styles.container }>
         <ListView
+          style={ styles.list }
           dataSource={ this.state.ds }
           renderRow={ this.renderRow.bind(this) }
           onEndReached={ () => this._loadNextPage() }
           onEndReachedThreshold={ 50 }
         />
-        { loadingTail }
+        { loadingBox }
       </View>
     );
   }
@@ -94,6 +101,7 @@ class TrendingList extends Component {
     );
   }
   renderRow(rowData) {
+    rowData.owner = rowData.owner || {};
     return (
       <TouchableHighlight onPress={ () => this._navigate(rowData) } underlayColor='#DFEDFF'>
         <View style={ styles.rowContainer }>
@@ -135,9 +143,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
   },
   loading: {
-    marginTop: 0,
+    padding: 6,
     textAlign: 'center',
-    color: '#999999',
+    color: '#666666',
+    backgroundColor: '#FFF59A',
+  },
+  list: {
   },
   rowContainer: {
     padding: 10,
