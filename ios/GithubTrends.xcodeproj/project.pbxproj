@@ -111,12 +111,12 @@
 		00C302BB1ABCB91800DB3ED1 /* RCTImage.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTImage.xcodeproj; path = "../node_modules/react-native/Libraries/Image/RCTImage.xcodeproj"; sourceTree = "<group>"; };
 		00C302D31ABCB9D200DB3ED1 /* RCTNetwork.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTNetwork.xcodeproj; path = "../node_modules/react-native/Libraries/Network/RCTNetwork.xcodeproj"; sourceTree = "<group>"; };
 		00C302DF1ABCB9EE00DB3ED1 /* RCTVibration.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTVibration.xcodeproj; path = "../node_modules/react-native/Libraries/Vibration/RCTVibration.xcodeproj"; sourceTree = "<group>"; };
-		00E356EE1AD99517003FC87E /* GithubTrending.temp_caseinsensitive_rename.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GithubTrending.temp_caseinsensitive_rename.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		00E356EE1AD99517003FC87E /* GithubTrends.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GithubTrends.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* githubtrendingTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = githubtrendingTests.m; sourceTree = "<group>"; };
 		139105B61AF99BAD00B5F7CC /* RCTSettings.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTSettings.xcodeproj; path = "../node_modules/react-native/Libraries/Settings/RCTSettings.xcodeproj"; sourceTree = "<group>"; };
 		139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTWebSocket.xcodeproj; path = "../node_modules/react-native/Libraries/WebSocket/RCTWebSocket.xcodeproj"; sourceTree = "<group>"; };
-		13B07F961A680F5B00A75B9A /* GithubTrending.temp_caseinsensitive_rename.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GithubTrending.temp_caseinsensitive_rename.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07F961A680F5B00A75B9A /* GithubTrends.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GithubTrends.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = githubtrending/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = githubtrending/AppDelegate.m; sourceTree = "<group>"; };
 		13B07FB21A68108700A75B9A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -229,7 +229,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		13B07FAE1A68108700A75B9A /* Github Trending */ = {
+		13B07FAE1A68108700A75B9A /* GithubTrend */ = {
 			isa = PBXGroup;
 			children = (
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
@@ -240,7 +240,7 @@
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
 			);
-			name = "Github Trending";
+			name = GithubTrend;
 			sourceTree = "<group>";
 		};
 		146834001AC3E56700842450 /* Products */ = {
@@ -287,7 +287,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				13B07FAE1A68108700A75B9A /* Github Trending */,
+				13B07FAE1A68108700A75B9A /* GithubTrend */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* githubtrendingTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
@@ -299,8 +299,8 @@
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B07F961A680F5B00A75B9A /* GithubTrending.temp_caseinsensitive_rename.app */,
-				00E356EE1AD99517003FC87E /* GithubTrending.temp_caseinsensitive_rename.xctest */,
+				13B07F961A680F5B00A75B9A /* GithubTrends.app */,
+				00E356EE1AD99517003FC87E /* GithubTrends.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -323,7 +323,7 @@
 			);
 			name = githubtrendingTests;
 			productName = githubtrendingTests;
-			productReference = 00E356EE1AD99517003FC87E /* GithubTrending.temp_caseinsensitive_rename.xctest */;
+			productReference = 00E356EE1AD99517003FC87E /* GithubTrends.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		13B07F861A680F5B00A75B9A /* githubtrending */ = {
@@ -341,7 +341,7 @@
 			);
 			name = githubtrending;
 			productName = "Hello World";
-			productReference = 13B07F961A680F5B00A75B9A /* GithubTrending.temp_caseinsensitive_rename.app */;
+			productReference = 13B07F961A680F5B00A75B9A /* GithubTrends.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -362,7 +362,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "GithubTrending" */;
+			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "GithubTrends" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -584,8 +584,8 @@
 				INFOPLIST_FILE = githubtrendingTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = GithubTrending.temp_caseinsensitive_rename;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GithubTrending.temp_caseinsensitive_rename.app/GithubTrending.temp_caseinsensitive_rename";
+				PRODUCT_NAME = GithubTrends;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GithubTrends.app/GithubTrends";
 			};
 			name = Debug;
 		};
@@ -597,8 +597,8 @@
 				INFOPLIST_FILE = githubtrendingTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = GithubTrending.temp_caseinsensitive_rename;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GithubTrending.temp_caseinsensitive_rename.app/GithubTrending.temp_caseinsensitive_rename";
+				PRODUCT_NAME = GithubTrends;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GithubTrends.app/GithubTrends";
 			};
 			name = Release;
 		};
@@ -620,7 +620,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_NAME = GithubTrending.temp_caseinsensitive_rename;
+				PRODUCT_NAME = GithubTrends;
 				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
@@ -642,7 +642,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_NAME = GithubTrending.temp_caseinsensitive_rename;
+				PRODUCT_NAME = GithubTrends;
 				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
@@ -754,7 +754,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "GithubTrending" */ = {
+		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "GithubTrends" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				83CBBA201A601CBA00E9B192 /* Debug */,
