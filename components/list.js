@@ -102,6 +102,14 @@ class TrendingList extends Component {
   }
   renderRow(rowData) {
     rowData.owner = rowData.owner || {};
+
+    let desc = null;
+    if (rowData.description) {
+      desc = (
+        <Text style={ styles.desc }>{ rowData.description }</Text>
+      );
+    }
+
     return (
       <TouchableHighlight onPress={ () => this._navigate(rowData) } underlayColor='#DFEDFF'>
         <View style={ styles.rowContainer }>
@@ -109,7 +117,7 @@ class TrendingList extends Component {
             <Text>{ rowData.owner.login }/</Text>
             <Text style={ styles.name }>{ rowData.name }</Text>
           </Text>
-          <Text style={ styles.desc }>{ rowData.description }</Text>
+          { desc }
           <Text style={ styles.tagsContainer }>
             <Text sytle={ styles.tag }>{ rowData.language || 'Unknown' }</Text>
             <Text sytle={ styles.seperator }> &middot; </Text>

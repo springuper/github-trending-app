@@ -41,14 +41,38 @@ class TrendingDetail extends Component {
     const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
     this.state = {
       ds: ds.cloneWithRows(listData),
+      isChromeInstalled: false,
     };
+
+    this.checkChrome();
   }
   render() {
-    return (
-      <View style={ styles.container }>
+    let desc = null;
+    if (this.props.data.description) {
+      desc = (
         <View style={ styles.sectionContainer }>
           <Text style={ styles.desc }>{ this.props.data.description }</Text>
         </View>
+      );
+    }
+
+    let chromeButton = null;
+    if (this.state.isChromeInstalled) {
+      chromeButton = (
+        <View style={ styles.sectionContainer }>
+          <TouchableHighlight
+            onPress={ () => this.openUrl(this.props.data.html_url.replace('https://', 'googlechromes://')) }
+            underlayColor='#DFEDFF'
+          >
+            <Text style={ styles.button }>Open in Chrome</Text>
+          </TouchableHighlight>
+        </View>
+      );
+    }
+
+    return (
+      <View style={ styles.container }>
+        { desc }
         <View >
           <ListView
             style={ styles.sectionContainer }
@@ -65,14 +89,7 @@ class TrendingDetail extends Component {
             <Text style={ styles.button }>Open in Safari</Text>
           </TouchableHighlight>
         </View>
-        <View style={ styles.sectionContainer }>
-          <TouchableHighlight
-            onPress={ () => this.openUrl(this.props.data.html_url.replace('https://', 'googlechromes://')) }
-            underlayColor='#DFEDFF'
-          >
-            <Text style={ styles.button }>Open in Chrome</Text>
-          </TouchableHighlight>
-        </View>
+        { chromeButton }
       </View>
     );
   }
@@ -91,6 +108,14 @@ class TrendingDetail extends Component {
       } else {
         console.log('Don\'t know how to open URI: ' + url);
       }
+    });
+  }
+  checkChrome() {
+    const self = this;
+    Linking.canOpenURL('googlechromes://www.github.com').then(supported => {
+      self.setState({
+        isChromeInstalled: !!supported,
+      });
     });
   }
 }

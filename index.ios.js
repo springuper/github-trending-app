@@ -127,4 +127,4 @@ const styles = StyleSheet.create({
   },
 });
 
-AppRegistry.registerComponent('githubtrending', () => GithubTrending);
+AppRegistry.registerComponent('GithubTrending', () => GithubTrending);
